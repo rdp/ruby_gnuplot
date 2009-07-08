@@ -17,9 +17,23 @@ module Gnuplot
   # Return the full path to the first match or nil if no match is found.
   # 
   def Gnuplot.which ( bin )
+    if RUBY_PLATFORM =~ /mswin|mingw/
+      all = [bin, bin + '.exe']
+    else
+      all = [bin]
+    end
+    for exec in all
+      if which_helper(exec)
+        return which_helper(exec)
+      end
+    end
+    return nil
+  end
+
+  def Gnuplot.which_helper
     return bin if File::executable? bin
 
-    path = ENV['PATH'] # || ENV['WHAT_EVER_WINDOWS_PATH_VAR_IS']
+    path = ENV['PATH']
     path.split(File::PATH_SEPARATOR).each do |dir|
       candidate = File::join dir, bin.strip
       return candidate if File::executable? candidate
@@ -42,6 +56,7 @@ module Gnuplot
   # Return the path to the gnuplot executable or nil if one cannot be found.
   def Gnuplot.gnuplot( persist = true )
     cmd = which( ENV['RB_GNUPLOT'] || 'gnuplot' )
+    raise 'gnuplot not found' unless cmd
     cmd += " -persist" if persist
     cmd
   end
