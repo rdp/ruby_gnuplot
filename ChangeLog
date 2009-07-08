@@ -1,3 +1,7 @@
+Version 2.2.2
+* raise if no executable found, should be windows compat. now
+
+
 Version 2.2  14-Nov-2005
 
 * Formally added the LICENSE.txt file.  It is the new BSD license as defined

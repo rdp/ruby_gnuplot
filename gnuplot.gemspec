@@ -3,7 +3,7 @@
 spec = Gem::Specification.new do |s|
   s.name = 'gnuplot'
   s.description = s.summary = "Utility library to aid in interacting with gnuplot"
-  s.version = "2.2.1"
+  s.version = "2.2.3"
   s.platform = Gem::Platform::RUBY
   s.date  = Time.new
 
@@ -16,7 +16,7 @@ spec = Gem::Specification.new do |s|
 end
 
 if $0==__FILE__
-  Gem.manage_gems
   Gem::Builder.new(spec).build
 end
+
 spec

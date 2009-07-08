@@ -30,7 +30,7 @@ module Gnuplot
     return nil
   end
 
-  def Gnuplot.which_helper
+  def Gnuplot.which_helper bin
     return bin if File::executable? bin
 
     path = ENV['PATH']
