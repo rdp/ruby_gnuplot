@@ -1,11 +1,9 @@
 # -*- ruby -*-
 
-require 'rubygems'
-
 spec = Gem::Specification.new do |s|
   s.name = 'gnuplot'
-  s.summary = "Utility library to aid in interacting with gnuplot"
-  s.version = "2.2"
+  s.description = s.summary = "Utility library to aid in interacting with gnuplot"
+  s.version = "2.2.1"
   s.platform = Gem::Platform::RUBY
   s.date  = Time.new
 
