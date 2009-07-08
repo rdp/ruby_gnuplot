@@ -1,0 +1,25 @@
+Version 2.2  14-Nov-2005
+
+* Formally added the LICENSE.txt file.  It is the new BSD license as defined
+  by opensource.org.  See that file for details.
+
+* Added Gnuplot.which to try and fix the recurring problem of windows users
+  having to hack code to get things working.
+
+* Added the Gnuplot.gnuplot function so that I can unit test the finding
+  gnuplot executable routine.
+
+* In the Array.to_gplot method the terminating e is added to the output.  This
+  is in response to Bug #2209.
+
+Version 2.1  17-Nov-2004
+
+* Array.to_gplot and Array.to_gsplot now support passing in arrays of
+  arbitrary objects. This is in response to a request by Yoshiki Tsunesada
+  (Tracker ID 1063)
+
+Version 2.0   10-Nov-2004
+
+* The 2.0 version of the gnuplot interface is a cross between the original,
+  object oriented version, and the version 1.0 which was simply a string
+  manipulation library.

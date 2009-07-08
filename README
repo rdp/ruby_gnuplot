@@ -1,0 +1,12 @@
+To install as a rubygem you must have a recent version of rubygems (> 0.8)
+
+ruby gnuplot.gemspec
+gem install gnuplot-<version>.gem
+
+
+To install ruby in the traditional way
+
+ruby extconf.rb
+make install
+
+See the howto.html for details on how to setup the module and generate plots.
