@@ -56,7 +56,7 @@ module Gnuplot
   # Return the path to the gnuplot executable or nil if one cannot be found.
   def Gnuplot.gnuplot( persist = true )
     cmd = which( ENV['RB_GNUPLOT'] || 'gnuplot' )
-    raise 'gnuplot not found' unless cmd
+    raise 'gnuplot executable not found' unless cmd
     cmd += " -persist" if persist
     cmd
   end
