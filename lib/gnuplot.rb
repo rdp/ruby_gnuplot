@@ -90,7 +90,7 @@ module Gnuplot
       @sets = []
       @data = []
       yield self if block_given?
-      
+      puts "writing this to gnuplot:\n" + to_gplot + "\n" if $VERBOSE    
       io << to_gplot if io
     end
 
