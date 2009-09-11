@@ -111,7 +111,7 @@ module Gnuplot
     # readable code.
 
     def set ( var, value = "" )
-      value = "'#{value}'" if QUOTED.include? var unless value =~ /^'.*'$/
+      value = "\"#{value}\"" if QUOTED.include? var unless value =~ /^'.*'$/
       @sets << [ var, value ]
     end
 
