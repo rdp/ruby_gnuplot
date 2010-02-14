@@ -189,7 +189,7 @@ module Gnuplot
   # @todo Use the delegator to delegate to the data property.
 
   class DataSet 
-    attr_accessor :title, :with, :using, :data, :linewidth, :matrix, :smooth
+    attr_accessor :title, :with, :using, :data, :linewidth, :matrix, :smooth, :axes
   
     def initialize (data = nil)
       @data = data
@@ -207,7 +207,9 @@ module Gnuplot
       io << ( (@data.instance_of? String) ? @data : "'-'" )
 
       io << " using #{@using}" if @using
-      
+     
+      io << " axes #{@axes}" if @axes
+ 
       io << case @title
             when /notitle/ then " notitle"
             when nil       then ""
