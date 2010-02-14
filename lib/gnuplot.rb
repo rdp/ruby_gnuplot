@@ -194,6 +194,7 @@ module Gnuplot
     def initialize (data = nil)
       @data = data
       yield self if block_given?
+      @title = @matrix = @with = @using = @axes = @linewidth = nil # avoid warnings
     end
         
     def notitle
