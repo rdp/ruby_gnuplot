@@ -231,4 +231,4 @@ end
 
 You can also add atribtrary lines to the output 
 
-plot.arbitrary_lines << "ylabel \"y label" font \"Helvetica,20\""
+plot.arbitrary_lines << "set ylabel \"y label" font \"Helvetica,20\""

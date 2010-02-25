@@ -1,3 +1,6 @@
+2.3.2 Feb 2010
+ * Add an arbitrary_lines specifier
+
 2.3.1 Feb 2010
 
 * Fix a bug I introduced in 2.3.0

@@ -1,7 +1,7 @@
 spec = Gem::Specification.new do |s|
   s.name = 'gnuplot'
   s.description = s.summary = "Utility library to aid in interacting with gnuplot"
-  s.version = "2.3.1"
+  s.version = "2.3.2"
   s.platform = Gem::Platform::RUBY
   s.date  = Time.new
 
