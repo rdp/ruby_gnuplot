@@ -192,7 +192,7 @@ module Gnuplot
   
     def initialize (data = nil)
       @data = data
-      @title = @matrix = @with = @using = @axes = @linewidth = nil # avoid warnings
+      @title = @with = @using = @linewidth = @matrix = @smooth = @axes = nil # avoid warnings
       yield self if block_given?
     end
         
