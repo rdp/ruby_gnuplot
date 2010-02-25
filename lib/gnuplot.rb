@@ -88,11 +88,13 @@ module Gnuplot
     def initialize (io = nil, cmd = "plot")
       @cmd = cmd
       @sets = []
+      @arbitrary_lines = []
       @data = []
       yield self if block_given?
       puts "writing this to gnuplot:\n" + to_gplot + "\n" if $VERBOSE    
       io << to_gplot if io
     end
+    attr_accessor :arbitrary_lines
 
     # Invoke the set method on the plot using the name of the invoked method
     # as the set variable and any arguments that have been passed as the
@@ -133,19 +135,19 @@ module Gnuplot
 
     def to_gplot (io = "")
       @sets.each { |var, val| io << "set #{var} #{val}\n" }
+      @arbitrary_lines.each{|line| io << line << "\n" }
 
       if @data.size > 0 then
         io << @cmd << " " << @data.collect { |e| e.plot_args }.join(", ")
         io << "\n"
 
-	v = @data.collect { |ds| ds.to_gplot }
-	io << v.compact.join("e\n")
+        v = @data.collect { |ds| ds.to_gplot }
+      	io << v.compact.join("e\n")
       end
 
       io
     end
   end
-
 
   class SPlot < Plot
 
