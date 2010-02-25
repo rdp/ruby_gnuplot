@@ -172,7 +172,6 @@ module Gnuplot
   end
 
 
-
   # Container for a single dataset being displayed by gnuplot.  Each object
   # has a reference to the actual data being plotted as well as settings that
   # control the "plot" command.  The data object must support the to_gplot
@@ -193,8 +192,8 @@ module Gnuplot
   
     def initialize (data = nil)
       @data = data
-      yield self if block_given?
       @title = @matrix = @with = @using = @axes = @linewidth = nil # avoid warnings
+      yield self if block_given?
     end
         
     def notitle

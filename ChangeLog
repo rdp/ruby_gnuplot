@@ -1,3 +1,11 @@
+2.3.1 Feb 2010
+
+* Fix a bug I introduced in 2.3.0
+
+2.3.0 Feb 2010
+
+* incorporate a few patch changes
+
 2.2.3.1 July 18 2009
 	
 * output the raw "to gnuplot" data if $VERBOSE
