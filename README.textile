@@ -1,23 +1,13 @@
-  
-     Ruby Gnuplot - How To 
-    
-      BODY { background: lightyellow; foreground: black;  link: #000099; 
-             vlink: #000066 }
-      H1 { color: green; text-align: center }
-      H2 { color: green; text-align: left }
-      H3 { color: green; text-align: left }
-    
-  
-  
-    h1.  Ruby Gnuplot - How To 
-    p=. 
+h1.  Ruby Gnuplot - How To 
+
+p=. 
       ["Rubyforge Project
 	page":http://rubyforge.org/projects/rgplot]
       ["ChangeLog":ChangeLog]
       ["Authors":AUTHORS.txt]
       ["License":LICENSE.txt]
     
-    h2.  History and Background 
+h2.  History and Background 
 
       Gnuplot is a program that has a rich language for the generation of
       plots.  It has a unique place in academia as it was one of the first
@@ -25,8 +15,9 @@
       over 10 years ago while pursuing my Master's degree in Physics and have
       been using it actively ever since.
     
-    h3. Version 0.9 
-    bq. 
+h3. Version 0.9 
+
+bq. 
       My first attempt at a Ruby interface to gnuplot was an object interface
       encapsulating gnuplot language. This was taken directly from the Python
       gnuplot interface. In spite of my being very familiar with Gnuplot and
@@ -35,8 +26,9 @@
       looking at the code to figure out what I needed to do.
       This was not sufficient and did not sit well.
     
-    h3. Version 1.0
-    bq. 
+h3. Version 1.0
+
+bq. 
       The second attempt at a Ruby interface was to do absolutely nothing but
       use Ruby's built in string manipulation methods.  This meant that I
       could simply use my knowledge of Gnuplot without having to worry about
@@ -44,8 +36,9 @@
       While in some ways an improvement over Version 0.9, it still did not sit
       well with me.
     
-    h3.  Version 2.0 
-    bq. 
+h3.  Version 2.0 
+
+bq. 
       After attending RubyConf 2004 I was inspired by Rich Kilmer's use of
       Ruby to implement domain specific languages.  That is the current
       implementation of Gnuplot and quite probably the one that I'll stick
@@ -54,16 +47,18 @@
       adding methods to existing classes to interface Ruby objects with
       gnuplot.
     
-    h2. Setup 
-    h3. Version 2.2
- If the 'gnuplot' command is in your path then there is no required
+h2. Setup 
+
+h3. Version 2.2
+
+    If the 'gnuplot' command is in your path then there is no required
     setup. If the gnuplot executable for your system is called something other
     than simply 'gnuplot' then set the RB_GNUPLOT environment variable to the
     name of the executable.  This must either be a full path to the gnuplot
     command or an executable filename that exists in your PATH environment
     variable.
     
-    h2.  Ruby Gnuplot Concepts 
+h2.  Ruby Gnuplot Concepts 
 
       Gnuplot has a very simple conceptual model.  Calls to _Set_ are
       made to set parameters and either _Plot_ or _Splot_ is
@@ -78,21 +73,20 @@
       plot:
     
     
-       p.  Instantiate a Plot or Splot object and set parameters by gnuplot
-	variable name. 
-       p. Instantiate DataSet objects and attach Ruby objects containing
+p.  Instantiate a Plot or Splot object and set parameters by gnuplot variable name. 
+p. Instantiate DataSet objects and attach Ruby objects containing
 	  the data to be plotted to the DataSet. Attach properties that modify
 	  the plot command using the modifier name.
       
-       p. Send the Plot/Splot object to a Gnuplot instance for
+p. Send the Plot/Splot object to a Gnuplot instance for
 	  plotting.  
-    
 
       The Version 2.0 interface makes very heavy use of blocks leading to very
       readable code.
     
 Gnuplot.open 
-    bq. 
+
+bq. 
       Instantiates a new Gnuplot process.  The path to the executable is
       determined on a Unix or MacOSX system using the which command.  Windows
       users, I have no idea what to do.
@@ -100,22 +94,26 @@ Gnuplot.open
       the block.  This mimics the most common usage of the File.open method.
     
 Plot.new 
-SPlot.new 
-    bq. 
+
+SPlot.new
+ 
+bq. 
       Create a new Plot or Splot object.  DataSets are attached to the object
       to specify the data and its properties. 
       If a block is given to the function, the plot object is passed into the
       block.
     
 DataSet.new
-    bq. 
+
+bq. 
       Associates a Ruby object containing the data to plot with the properties
       that will be passed to the plot command for that dataset.  Any Ruby
       object can be associated with a DataSet as long as it understands the
       to_gplot method.
     
  to_gplot 
-    bq. 
+ 
+bq. 
       Within Gnuplot, plot data is read in very simple formats.  The
       to_gplot method is expected to write the data of the object in a format
       that is understandable by Gnuplot.  One of the many great things about
@@ -125,37 +123,37 @@ DataSet.new
       Simply define a to_gplot method on your own class to tie the class into
       gnuplot.
     
-    h2.  Examples 
-    h3.  Simple sin wave 
- The following example simply plots the value of sin(x) between the
+h2.  Examples 
+
+h3.  Simple sin wave 
+
+bq. The following example simply plots the value of sin(x) between the
       ranges of -10 and 10.  A few points to notice:
     
     
-      p.  The code uses nested blocks to construct the plot.  The newly
+p.  The code uses nested blocks to construct the plot.  The newly
 	  created object is passed to the block so it can be modified in
 	  place.
 	
       
-      p.  Each of the gnuplot plot variables are modified using the 
+p.  Each of the gnuplot plot variables are modified using the 
 	  variable name as a method name on the plot object or on the dataset
 	  object.  The wrapper also takes care of the single quoting that is
 	  required on some of the variables like title, ylabel, and xlabel.
 	
       
-      p.  The plot object simply has an array of DataSets.  The
+p.  The plot object simply has an array of DataSets.  The
 	  constructor initializes this empty array before yielding to the
 	  block.  This method uses the << operator to add the DataSet to
 	  the plot.
 	
       
-      p.  When the plot block ends, if an IO object is given to the Plot
+p.  When the plot block ends, if an IO object is given to the Plot
 	  constructor, the plot commands will be written to the IO object.
 	  Any object can be passed to the constructor as long as it
 	  understands the << operator.
-	
-      
-    
-    p(=code). 
+	  
+<pre><code>
 Gnuplot.open do |gp|
   Gnuplot::Plot.new( gp ) do |plot|
     plot.xrange "[-10:10]"
@@ -163,3 +161,4 @@ Gnuplot.open do |gp|
     plot.ylabel "x"
     plot.xlabel "sin(x)"
     plot.data 
+    </code></pre>
