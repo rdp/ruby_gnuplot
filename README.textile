@@ -156,9 +156,76 @@ p.  When the plot block ends, if an IO object is given to the Plot
 <pre><code>
 Gnuplot.open do |gp|
   Gnuplot::Plot.new( gp ) do |plot|
+  
     plot.xrange "[-10:10]"
     plot.title  "Sin Wave Example"
     plot.ylabel "x"
     plot.xlabel "sin(x)"
-    plot.data 
-    </code></pre>
+    
+    plot.data << Gnuplot::DataSet.new( "sin(x)" ) do |ds|
+      ds.with = "lines"
+      ds.linewidth = 4
+    end
+    
+  end
+  
+end
+
+Plotting discrete points
+
+Array data can be plotted quite easily since Arrays have a defined to_gplot method.
+
+Simply pass an array of data to the constructor of the DataSet object or set the data property of the DataSet. In this example, because there are two arrays, each array will be a single column of data to the gnuplot process.
+
+Gnuplot.open do |gp|
+  Gnuplot::Plot.new( gp ) do |plot|
+  
+    plot.title  "Array Plot Example"
+    plot.ylabel "x"
+    plot.xlabel "x^2"
+    
+    x = (0..50).collect { |v| v.to_f }
+    y = x.collect { |v| v ** 2 }
+
+    plot.data << Gnuplot::DataSet.new( [x, y] ) do |ds|
+      ds.with = "linespoints"
+      ds.notitle
+    end
+  end
+end
+    
+Multiple Data Sets
+
+As many data sets as are desired can be attached to a plot. Each of these can have their own plot modifiers. Notice in this example how the data array is explicitly set instead of using the << operator.
+
+Also in this example, the commands are not written to the Gnuplot process but are instead written to a File called gnuplot.dat. This file can later be run directly by a gnuplot process as it contains only the gnuplot commands.
+
+File.open( "gnuplot.dat", "w") do |gp|
+  Gnuplot::Plot.new( gp ) do |plot|
+  
+    plot.xrange "[-10:10]"
+    plot.title  "Sin Wave Example"
+    plot.ylabel "x"
+    plot.xlabel "sin(x)"
+    
+    x = (0..50).collect { |v| v.to_f }
+    y = x.collect { |v| v ** 2 }
+
+    plot.data = [
+      Gnuplot::DataSet.new( "sin(x)" ) { |ds|
+	ds.with = "lines"
+	ds.title = "String function"
+	ds.linewidth = 4
+      },
+    
+      Gnuplot::DataSet.new( [x, y] ) { |ds|
+	ds.with = "linespoints"
+	ds.title = "Array data"
+      }
+    ]
+
+  end
+  
+end
+    
+    
