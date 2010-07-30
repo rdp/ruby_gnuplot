@@ -9,7 +9,7 @@ class StdDataTest < Test::Unit::TestCase
     data = (0..5).to_a
     ds = Gnuplot::DataSet.new( data )
     
-    assert data, ds.data
+    assert data == ds.data
     assert data.join("\n") + "\n", ds.to_gplot
   end
 
@@ -24,7 +24,7 @@ class StdDataTest < Test::Unit::TestCase
     data = [ d1, d2, d3 ]
     ds = Gnuplot::DataSet.new( data )
     
-    assert data, ds.data
+    assert data == ds.data
     assert "0 0 0\n1 3 12\n2 6 24\n3 9 36\n", ds.to_gplot
   end
 end
@@ -42,7 +42,7 @@ class DataSetTest < Test::Unit::TestCase
     assert "lines", ds.with
     assert "1:2",   ds.using
     assert nil == ds.title
-    assert [ [0, 1, 2], [1, 2, 5] ], ds.data
+    assert [ [0, 1, 2], [1, 2, 5] ] == ds.data
     assert "'-' using 1:2 with lines",  ds.plot_args
     assert "0 1\n1 2\n2 5\n", ds.to_gplot 
   end
@@ -58,7 +58,7 @@ class PlotTest < Test::Unit::TestCase
       p.set "terminal", "postscript enhanced"
     end
 
-    assert( plot.sets, 
+    assert( plot.sets ==
 		 [ ["output", "'foo'"], 
 		   ["terminal", "postscript enhanced"] ] )
     
