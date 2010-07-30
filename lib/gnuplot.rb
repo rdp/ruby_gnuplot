@@ -219,8 +219,8 @@ module Gnuplot
             end
 
       io << " matrix" if @matrix
-      io << " with #{@with}" if @with
       io << " smooth #{@smooth}" if @smooth
+      io << " with #{@with}" if @with
       io << " linewidth #{@linewidth}" if @linewidth
       io
     end
