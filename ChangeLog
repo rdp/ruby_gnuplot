@@ -1,3 +1,10 @@
+2.3.4
+ * Include more files in the gem by switching to Jeweler (thanks Jeweler guyz)!
+
+2.3.3
+ * Fix issue #4 (thanks Jakobs)
+ * Fix some unit tests (thanks Nobu!) 
+
 2.3.2 Feb 2010
  * Add an arbitrary_lines specifier
 
