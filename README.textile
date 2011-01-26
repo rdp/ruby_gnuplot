@@ -86,7 +86,8 @@ p. Send the Plot/Splot object to a Gnuplot instance for
     
 Gnuplot.open 
 
-bq. 
+
+bq. 
       Instantiates a new Gnuplot process.  The path to the executable is
       determined on a Unix or MacOSX system using the which command.  Windows
       users, I have no idea what to do.
@@ -95,7 +96,8 @@ Gnuplot.open
     
 Plot.new 
 
-SPlot.new
+
+SPlot.new
  
 bq. 
       Create a new Plot or Splot object.  DataSets are attached to the object
@@ -125,7 +127,8 @@ bq.
     
 h2.  Examples 
 
-h3.  Simple sin wave 
+
+h3.  Simple sin wave 
 
 bq. The following example simply plots the value of sin(x) between the
       ranges of -10 and 10.  A few points to notice:
@@ -153,7 +156,7 @@ p.  When the plot block ends, if an IO object is given to the Plot
 	  Any object can be passed to the constructor as long as it
 	  understands the << operator.
 	  
-<pre><code>
+<pre>
 Gnuplot.open do |gp|
   Gnuplot::Plot.new( gp ) do |plot|
   
@@ -170,13 +173,16 @@ Gnuplot.open do |gp|
   end
   
 end
+</pre>
 
-Plotting discrete points
+
+h3. Plotting discrete points
 
 Array data can be plotted quite easily since Arrays have a defined to_gplot method.
 
 Simply pass an array of data to the constructor of the DataSet object or set the data property of the DataSet. In this example, because there are two arrays, each array will be a single column of data to the gnuplot process.
 
+<pre>
 Gnuplot.open do |gp|
   Gnuplot::Plot.new( gp ) do |plot|
   
@@ -193,13 +199,15 @@ Gnuplot.open do |gp|
     end
   end
 end
+</pre>
     
-Multiple Data Sets
+h3. Multiple Data Sets
 
 As many data sets as are desired can be attached to a plot. Each of these can have their own plot modifiers. Notice in this example how the data array is explicitly set instead of using the << operator.
 
 Also in this example, the commands are not written to the Gnuplot process but are instead written to a File called gnuplot.dat. This file can later be run directly by a gnuplot process as it contains only the gnuplot commands.
 
+<pre>
 File.open( "gnuplot.dat", "w") do |gp|
   Gnuplot::Plot.new( gp ) do |plot|
   
@@ -225,10 +233,11 @@ File.open( "gnuplot.dat", "w") do |gp|
     ]
 
   end
-  
 end
-    
+</pre>    
 
-You can also add atribtrary lines to the output 
+You can also add arbitrary lines to the output 
 
+<pre>
 plot.arbitrary_lines << "set ylabel \"y label" font \"Helvetica,20\""
+</pre>
