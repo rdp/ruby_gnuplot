@@ -1,3 +1,6 @@
+2.3.5
+ * Cleanup readme, add examples as real code files (thanks blambeau!)
+
 2.3.4
  * Include more files in the gem by switching to Jeweler (thanks Jeweler guyz)!
 
