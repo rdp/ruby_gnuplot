@@ -1,8 +1,6 @@
 h1.  Ruby Gnuplot - How To 
 
 p=. 
-      ["Rubyforge Project
-	page":http://rubyforge.org/projects/rgplot]
       ["ChangeLog":ChangeLog]
       ["Authors":AUTHORS.txt]
       ["License":LICENSE.txt]
@@ -13,50 +11,8 @@ h2.  History and Background
       plots.  It has a unique place in academia as it was one of the first
       freely available programs for plot generation.  I started using gnuplot
       over 10 years ago while pursuing my Master's degree in Physics and have
-      been using it actively ever since.
-    
-h3. Version 0.9 
-
-bq. 
-      My first attempt at a Ruby interface to gnuplot was an object interface
-      encapsulating gnuplot language. This was taken directly from the Python
-      gnuplot interface. In spite of my being very familiar with Gnuplot and
-      Ruby and being the author of the RGnuplot package, I found it
-      non-intuitive to use the RGnuplot package.  I found myself constantly
-      looking at the code to figure out what I needed to do.
-      This was not sufficient and did not sit well.
-    
-h3. Version 1.0
-
-bq. 
-      The second attempt at a Ruby interface was to do absolutely nothing but
-      use Ruby's built in string manipulation methods.  This meant that I
-      could simply use my knowledge of Gnuplot without having to worry about
-      objects.
-      While in some ways an improvement over Version 0.9, it still did not sit
-      well with me.
-    
-h3.  Version 2.0 
-
-bq. 
-      After attending RubyConf 2004 I was inspired by Rich Kilmer's use of
-      Ruby to implement domain specific languages.  That is the current
-      implementation of Gnuplot and quite probably the one that I'll stick
-      with for some time.  This version combines the direct mapping of the
-      gnuplot language without wrapping with the ruby syntax and mechanism of
-      adding methods to existing classes to interface Ruby objects with
-      gnuplot.
-    
-h2. Setup 
-
-h3. Version 2.2
-
-    If the 'gnuplot' command is in your path then there is no required
-    setup. If the gnuplot executable for your system is called something other
-    than simply 'gnuplot' then set the RB_GNUPLOT environment variable to the
-    name of the executable.  This must either be a full path to the gnuplot
-    command or an executable filename that exists in your PATH environment
-    variable.
+      been using it actively ever since. Now rdp maintains it.
+      See also the changelog for more detail.
     
 h2.  Ruby Gnuplot Concepts 
 
@@ -133,11 +89,9 @@ h3.  Simple sin wave
 bq. The following example simply plots the value of sin(x) between the
       ranges of -10 and 10.  A few points to notice:
     
-    
 p.  The code uses nested blocks to construct the plot.  The newly
 	  created object is passed to the block so it can be modified in
 	  place.
-	
       
 p.  Each of the gnuplot plot variables are modified using the 
 	  variable name as a method name on the plot object or on the dataset
@@ -169,6 +123,10 @@ Gnuplot.open do |gp|
       ds.with = "lines"
       ds.linewidth = 4
     end
+    
+    # write it somewhere
+    plot.terminal "gif"
+    plot.output sin_wave.gif
     
   end
   

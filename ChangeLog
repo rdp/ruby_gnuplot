@@ -1,3 +1,6 @@
+2.3.6
+ * Cleanup readme (thanks blambeau again, really, for the snippets)
+
 2.3.5
  * Cleanup readme, add examples as real code files (thanks blambeau!)
 
@@ -52,3 +55,48 @@ Version 2.0   10-Nov-2004
 * The 2.0 version of the gnuplot interface is a cross between the original,
   object oriented version, and the version 1.0 which was simply a string
   manipulation library.
+
+
+h3. Version 0.9 
+
+bq. 
+      My first attempt at a Ruby interface to gnuplot was an object interface
+      encapsulating gnuplot language. This was taken directly from the Python
+      gnuplot interface. In spite of my being very familiar with Gnuplot and
+      Ruby and being the author of the RGnuplot package, I found it
+      non-intuitive to use the RGnuplot package.  I found myself constantly
+      looking at the code to figure out what I needed to do.
+      This was not sufficient and did not sit well.
+    
+h3. Version 1.0
+
+bq. 
+      The second attempt at a Ruby interface was to do absolutely nothing but
+      use Ruby's built in string manipulation methods.  This meant that I
+      could simply use my knowledge of Gnuplot without having to worry about
+      objects.
+      While in some ways an improvement over Version 0.9, it still did not sit
+      well with me.
+    
+h3.  Version 2.0 
+
+bq. 
+      After attending RubyConf 2004 I was inspired by Rich Kilmer's use of
+      Ruby to implement domain specific languages.  That is the current
+      implementation of Gnuplot and quite probably the one that I'll stick
+      with for some time.  This version combines the direct mapping of the
+      gnuplot language without wrapping with the ruby syntax and mechanism of
+      adding methods to existing classes to interface Ruby objects with
+      gnuplot.
+    
+h2. Setup 
+
+h3. Version 2.2
+
+    If the 'gnuplot' command is in your path then there is no required
+    setup. If the gnuplot executable for your system is called something other
+    than simply 'gnuplot' then set the RB_GNUPLOT environment variable to the
+    name of the executable.  This must either be a full path to the gnuplot
+    command or an executable filename that exists in your PATH environment
+    variable.
+    
