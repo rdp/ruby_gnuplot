@@ -124,15 +124,13 @@ Gnuplot.open do |gp|
       ds.linewidth = 4
     end
     
-    # write it somewhere
-    plot.terminal "gif"
-    plot.output sin_wave.gif
-    
   end
   
 end
 </pre>
 
+Or you can write it out to a file (the above snippet displays the graph, in Linux, but in windows you'd need to write it to a file).
+See the file examples/output_image_file.rb.
 
 h3. Plotting discrete points
 
