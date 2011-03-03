@@ -1,7 +1,7 @@
 h1.  Ruby Gnuplot - How To 
 
 p=. 
-      ["ChangeLog":ChangeLog]
+      ["ChangeLog":/ChangeLog]
       ["Authors":AUTHORS.txt]
       ["License":LICENSE.txt]
     
