@@ -1,3 +1,8 @@
+begin
+  require 'psych' # boo
+rescue ::LoadError
+end
+
 require 'jeweler'
 Jeweler::Tasks.new do |s|
   s.name = 'gnuplot'
