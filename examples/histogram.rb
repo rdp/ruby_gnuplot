@@ -3,9 +3,9 @@ require "gnuplot"
 Gnuplot.open do |gp|
   Gnuplot::Plot.new(gp) do |plot|
   
-    plot.title  "Array Plot Example"
+    plot.title  "Histogram example"
     plot.style  "data histograms"
-    plot.xtics "nomirror rotate by -45"
+    plot.xtics  "nomirror rotate by -45"
     
     titles = %w{decade Austria Hungary  Belgium} 
     data = [
