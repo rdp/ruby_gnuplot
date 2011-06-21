@@ -197,3 +197,6 @@ You can also add arbitrary lines to the output
 <pre>
 plot.arbitrary_lines << "set ylabel \"y label" font \"Helvetica,20\""
 </pre>
+
+See more in the examples folder.  Also since this is basically just a wrapper for gnuplot itself, you should be able to do anything that it can do (demos: 
+http://gnuplot.sourceforge.net/demo_4.4/ ) 
