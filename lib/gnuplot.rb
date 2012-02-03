@@ -152,6 +152,8 @@ module Gnuplot
         v = @data.collect { |ds| ds.to_gplot }
       	io << v.compact.join("e\n")
       end
+      
+      io
     end
   end
 
