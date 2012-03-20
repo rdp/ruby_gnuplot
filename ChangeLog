@@ -1,3 +1,6 @@
+2.4.0
+ * Allow for 3D plots, fix examples. Thanks everybody!
+
 2.3.6
  * Cleanup readme (thanks blambeau again, really, for the snippets)
 
