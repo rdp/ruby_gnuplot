@@ -83,7 +83,7 @@ module Gnuplot
   class Plot
     attr_accessor :cmd, :data, :sets
 
-    QUOTED = [ "title", "output", "xlabel", "ylabel" ]
+    QUOTED = [ "title", "output", "xlabel", "x2label", "ylabel", "y2label", "clabel", "cblabel", "zlabel" ]
 
     def initialize (io = nil, cmd = "plot")
       @cmd = cmd
