@@ -10,4 +10,5 @@ Gnuplot.open do |gp|
       end
     ]
   end
+  sleep 10
 end

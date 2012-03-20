@@ -5,8 +5,8 @@ Gnuplot.open do |gp|
   
     plot.xrange "[-10:10]"
     plot.title  "Sin Wave Example"
-    plot.ylabel "x"
-    plot.xlabel "sin(x)"
+    plot.ylabel "sin(x)"
+    plot.xlabel "x"
     
     x = (0..50).collect { |v| v.to_f }
     y = x.collect { |v| v ** 2 }

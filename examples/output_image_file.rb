@@ -15,13 +15,13 @@ Gnuplot.open do |gp|
     # for a list of recognized terminals.
     #
     plot.terminal "gif"
-    plot.output   File.expand_path("../sin_wave.gif", __FILE__)
+    plot.output File.expand_path("../sin_wave.gif", __FILE__)
   
     # see sin_wave.rb
     plot.xrange "[-10:10]"
     plot.title  "Sin Wave Example"
-    plot.ylabel "x"
-    plot.xlabel "sin(x)"
+    plot.ylabel "sin(x)"
+    plot.xlabel "x"
     
     plot.data << Gnuplot::DataSet.new( "sin(x)" ) do |ds|
       ds.with = "lines"
@@ -30,3 +30,4 @@ Gnuplot.open do |gp|
     
   end
 end
+puts 'created sin_wave.gif'

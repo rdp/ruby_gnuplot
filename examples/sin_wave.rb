@@ -5,8 +5,8 @@ Gnuplot.open do |gp|
   
     plot.xrange "[-10:10]"
     plot.title  "Sin Wave Example"
-    plot.ylabel "x"
-    plot.xlabel "sin(x)"
+    plot.ylabel "sin(x)"
+    plot.xlabel "x"
     
     plot.data << Gnuplot::DataSet.new( "sin(x)" ) do |ds|
       ds.with = "lines"
@@ -14,4 +14,5 @@ Gnuplot.open do |gp|
     end
     
   end
+  sleep 10
 end
