@@ -1,3 +1,6 @@
+2.4.1
+ * Quote escape more strings. Thanks for the tip!
+
 2.4.0
  * Allow for 3D plots, fix examples. Thanks everybody!
 
