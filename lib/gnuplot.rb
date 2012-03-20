@@ -91,8 +91,12 @@ module Gnuplot
       @arbitrary_lines = []
       @data = []
       yield self if block_given?
-      puts "writing this to gnuplot:\n" + to_gplot + "\n" if $VERBOSE    
-      io << to_gplot if io
+      puts "writing this to gnuplot:\n" + to_gplot + "\n" if $VERBOSE
+
+      if io    
+        io << to_gplot
+        io << store_datasets
+      end
     end
     attr_accessor :arbitrary_lines
 
@@ -137,14 +141,18 @@ module Gnuplot
       @sets.each { |var, val| io << "set #{var} #{val}\n" }
       @arbitrary_lines.each{|line| io << line << "\n" }
 
-      if @data.size > 0 then
+      io
+    end
+
+    def store_datasets (io = "")
+      if @data.size > 0
         io << @cmd << " " << @data.collect { |e| e.plot_args }.join(", ")
         io << "\n"
 
         v = @data.collect { |ds| ds.to_gplot }
       	io << v.compact.join("e\n")
       end
-
+      
       io
     end
   end
@@ -157,16 +165,6 @@ module Gnuplot
     
     def to_gplot (io = "")
       @sets.each { |var, val| io << "set #{var} #{val}\n" }
-
-      if @data.size > 0 then
-        io << @cmd << " " 
-        io << @data.collect { |e| e.plot_args }.join(", ")
-        io << "\n"
-
-        @data.each do |ds| 
-          io << ds.to_gsplot << "e\n"
-        end
-      end
 
       io
     end
