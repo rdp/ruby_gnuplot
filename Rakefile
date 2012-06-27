@@ -8,3 +8,12 @@ Jeweler::Tasks.new do |s|
   s.email = "rogerpack2005@gmail.com"
   s.homepage = "http://github.com/rdp/ruby_gnuplot/tree/master"
 end
+
+desc 'run unit tests'
+task :test do
+Dir.chdir 'test'
+for file in Dir['*']
+  system("ruby #{file}")
+end
+
+end
