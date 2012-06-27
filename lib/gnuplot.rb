@@ -71,9 +71,15 @@ module Gnuplot
   # <b>todo</b> Add a method to pass the gnuplot path to the function.
   
   def Gnuplot.open( persist=true )
-    cmd = Gnuplot.gnuplot( persist ) or raise 'gnuplot not found'
-    IO::popen( cmd, "w") { |io| yield io }
-  end 
+    cmd = Gnuplot.gnuplot( persist )
+    IO::popen( cmd, "w+") { |io|
+      yield io
+      io.close_write
+      @output = io.read
+    }
+    return @output	
+  end
+  
     
     
   # Holds command information and performs the formatting of that command
