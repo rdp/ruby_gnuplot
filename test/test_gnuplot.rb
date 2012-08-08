@@ -56,11 +56,13 @@ class PlotTest < Test::Unit::TestCase
     plot = Gnuplot::Plot.new do |p|
       p.set "output", "'foo'"
       p.set "terminal", "postscript enhanced"
+      p.unset "border"
     end
 
-    assert( plot.sets ==
-		 [ ["output", "'foo'"], 
-		   ["terminal", "postscript enhanced"] ] )
+    assert( plot.settings ==
+		 [ [:set, "output", "'foo'"], 
+		   [:set, "terminal", "postscript enhanced"],
+                   [:unset, "border"] ] )
     
 
     assert( plot.to_gplot, \
@@ -76,6 +78,16 @@ class PlotTest < Test::Unit::TestCase
 
     plot.set "title", "'foo'"
     assert "'foo'", plot["title"]
+  end
+
+  def test_unset
+    plot = Gnuplot::Plot.new do |p|
+      p.unset "title"
+    end
+    assert_nil plot["title"]
+
+    plot.unset "title"
+    assert_nil plot["title"]
   end
 
 end
