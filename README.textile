@@ -143,8 +143,8 @@ Gnuplot.open do |gp|
   Gnuplot::Plot.new( gp ) do |plot|
   
     plot.title  "Array Plot Example"
-    plot.ylabel "x"
-    plot.xlabel "x^2"
+    plot.xlabel "x"
+    plot.ylabel "x^2"
     
     x = (0..50).collect { |v| v.to_f }
     y = x.collect { |v| v ** 2 }
