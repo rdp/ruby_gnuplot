@@ -25,23 +25,23 @@ h2.  Ruby Gnuplot Concepts
     
 
       The object model for the Ruby gnuplot wrapper directly mimics this
-      layout and flow.  The following are the standard steps for generating a
+      layout and flow. The following are the standard steps for generating a
       plot:
     
     
-p.  Instantiate a Plot or Splot object and set parameters by gnuplot variable name. 
-p. Instantiate DataSet objects and attach Ruby objects containing
+#     Instantiate a Plot or Splot object and set parameters by gnuplot variable name. 
+
+#     Instantiate DataSet objects and attach Ruby objects containing
 	  the data to be plotted to the DataSet. Attach properties that modify
 	  the plot command using the modifier name.
       
-p. Send the Plot/Splot object to a Gnuplot instance for
+#     Send the Plot/Splot object to a Gnuplot instance for
 	  plotting.  
 
       The Version 2.0 interface makes very heavy use of blocks leading to very
       readable code.
     
 Gnuplot.open 
-
 
 bq. 
       Instantiates a new Gnuplot process.  The path to the executable is
@@ -69,7 +69,7 @@ bq.
       object can be associated with a DataSet as long as it understands the
       to_gplot method.
     
- to_gplot 
+to_gplot 
  
 bq. 
       Within Gnuplot, plot data is read in very simple formats.  The
