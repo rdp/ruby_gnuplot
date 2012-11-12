@@ -29,15 +29,11 @@ h2.  Ruby Gnuplot Concepts
       plot:
     
     
-#     Instantiate a @Plot@ or @Splot@ object and set parameters by gnuplot
-#     variable name. 
+#     Instantiate a @Plot@ or @Splot@ object and set parameters by gnuplot variable name. 
 
-#     Instantiate @DataSet@ objects and attach Ruby objects containing
-      the data to be plotted to the @DataSet@. Attach properties that modify
-      the plot command using the modifier name.
+#     Instantiate @DataSet@ objects and attach Ruby objects containing the data to be plotted to the @DataSet@. Attach properties that modify the plot command using the modifier name.
       
-#     Send the @Plot@/@Splot@ object to a @Gnuplot@ instance for
-      plotting.  
+#     Send the @Plot@/@Splot@ object to a @Gnuplot@ instance for plotting.  
 
       The Version 2.0 interface makes very heavy use of blocks leading to very
       readable code.
@@ -90,26 +86,13 @@ h3.  Simple sin wave
 bq. The following example simply plots the value of sin(x) between the
       ranges of -10 and 10.  A few points to notice:
     
-*  The code uses nested blocks to construct the plot.  The newly
-	  created object is passed to the block so it can be modified in
-	  place.
+*  The code uses nested blocks to construct the plot.  The newly created object is passed to the block so it can be modified in place.
       
-*  Each of the gnuplot plot variables are modified using the 
-	  variable name as a method name on the plot object or on the dataset
-	  object.  The wrapper also takes care of the single quoting that is
-	  required on some of the variables like @title@, @ylabel@, and @xlabel@.
-	
+*  Each of the gnuplot plot variables are modified using the variable name as a method name on the plot object or on the dataset object.  The wrapper also takes care of the single quoting that is required on some of the variables like @title@, @ylabel@, and @xlabel@.
       
-*  The plot object simply has an array of @DataSet@s.  The
-	  constructor initializes this empty array before yielding to the
-	  block.  This method uses the @<<@ operator to add the @DataSet@ to
-	  the plot.
-	
+*  The plot object simply has an array of @DataSet@s.  The constructor initializes this empty array before yielding to the block.  This method uses the @<<@ operator to add the @DataSet@ to the plot.
       
-*  When the plot block ends, if an @IO@ object is given to the @Plot@
-	  constructor, the plot commands will be written to the @IO@ object.
-	  Any object can be passed to the constructor as long as it
-	  understands the @<<@ operator.
+*  When the plot block ends, if an @IO@ object is given to the @Plot@ constructor, the plot commands will be written to the @IO@ object.  Any object can be passed to the constructor as long as it understands the @<<@ operator.
 	  
 <pre>
 Gnuplot.open do |gp|
