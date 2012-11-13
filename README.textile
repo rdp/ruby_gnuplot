@@ -53,7 +53,7 @@ bq.
 @SPlot.new@
  
 bq. 
-      Create a new @Plot@ or @SPlot@ object. @DataSet@s are attached to the object
+      Create a new @Plot@ or @SPlot@ object. @DataSet@ s are attached to the object
       to specify the data and its properties. 
       If a block is given to the function, the plot object is passed into the
       block.
