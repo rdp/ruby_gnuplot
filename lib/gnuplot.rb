@@ -195,11 +195,11 @@ module Gnuplot
   # @todo Use the delegator to delegate to the data property.
 
   class DataSet 
-    attr_accessor :title, :with, :using, :data, :linewidth, :matrix, :smooth, :axes
+    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes
   
     def initialize (data = nil)
       @data = data
-      @title = @with = @using = @linewidth = @matrix = @smooth = @axes = nil # avoid warnings
+      @title = @with = @using = @linewidth = @linecolor = @matrix = @smooth = @axes = nil # avoid warnings
       yield self if block_given?
     end
         
@@ -226,6 +226,7 @@ module Gnuplot
       io << " matrix" if @matrix
       io << " smooth #{@smooth}" if @smooth
       io << " with #{@with}" if @with
+      io << " linecolor #{@linecolor}" if @linecolor
       io << " linewidth #{@linewidth}" if @linewidth
       io
     end
