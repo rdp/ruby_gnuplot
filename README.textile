@@ -25,60 +25,57 @@ h2.  Ruby Gnuplot Concepts
     
 
       The object model for the Ruby gnuplot wrapper directly mimics this
-      layout and flow.  The following are the standard steps for generating a
+      layout and flow. The following are the standard steps for generating a
       plot:
     
     
-p.  Instantiate a Plot or Splot object and set parameters by gnuplot variable name. 
-p. Instantiate DataSet objects and attach Ruby objects containing
-	  the data to be plotted to the DataSet. Attach properties that modify
-	  the plot command using the modifier name.
+#     Instantiate a @Plot@ or @Splot@ object and set parameters by gnuplot variable name. 
+
+#     Instantiate @DataSet@ objects and attach Ruby objects containing the data to be plotted to the @DataSet@. Attach properties that modify the plot command using the modifier name.
       
-p. Send the Plot/Splot object to a Gnuplot instance for
-	  plotting.  
+#     Send the @Plot@/@Splot@ object to a @Gnuplot@ instance for plotting.  
 
       The Version 2.0 interface makes very heavy use of blocks leading to very
       readable code.
     
-Gnuplot.open 
-
+@Gnuplot.open@
 
 bq. 
-      Instantiates a new Gnuplot process.  The path to the executable is
+      Instantiates a new Gnuplot process. The path to the executable is
       determined on a Unix or MacOSX system using the which command.  Windows
       users, I have no idea what to do.
       If a block is given to the function the opened process is passed into
-      the block.  This mimics the most common usage of the File.open method.
+      the block. This mimics the most common usage of the @File.open@ method.
     
-Plot.new 
+@Plot.new@ 
 
 
-SPlot.new
+@SPlot.new@
  
 bq. 
-      Create a new Plot or Splot object.  DataSets are attached to the object
+      Create a new @Plot@ or @SPlot@ object. @DataSet@ s are attached to the object
       to specify the data and its properties. 
       If a block is given to the function, the plot object is passed into the
       block.
     
-DataSet.new
+@DataSet.new@
 
 bq. 
       Associates a Ruby object containing the data to plot with the properties
-      that will be passed to the plot command for that dataset.  Any Ruby
-      object can be associated with a DataSet as long as it understands the
-      to_gplot method.
+      that will be passed to the plot command for that dataset. Any Ruby
+      object can be associated with a @DataSet@ as long as it understands the
+      @to_gplot@ method.
     
- to_gplot 
+@to_gplot@ 
  
 bq. 
       Within Gnuplot, plot data is read in very simple formats.  The
-      to_gplot method is expected to write the data of the object in a format
-      that is understandable by Gnuplot.  One of the many great things about
-      Ruby is that methods can be added after the original declaration.  The
-      gnuplot module defines the to_gplot method on the following classes:
-      Array, String, and Matrix.
-      Simply define a to_gplot method on your own class to tie the class into
+      @to_gplot@ method is expected to write the data of the object in a format
+      that is understandable by Gnuplot. One of the many great things about
+      Ruby is that methods can be added after the original declaration. The
+      gnuplot module defines the @to_gplot@ method on the following classes:
+      @Array@, @String@, and @Matrix@.
+      Simply define a @to_gplot@ method on your own class to tie the class into
       gnuplot.
     
 h2.  Examples 
@@ -89,26 +86,13 @@ h3.  Simple sin wave
 bq. The following example simply plots the value of sin(x) between the
       ranges of -10 and 10.  A few points to notice:
     
-p.  The code uses nested blocks to construct the plot.  The newly
-	  created object is passed to the block so it can be modified in
-	  place.
+*  The code uses nested blocks to construct the plot.  The newly created object is passed to the block so it can be modified in place.
       
-p.  Each of the gnuplot plot variables are modified using the 
-	  variable name as a method name on the plot object or on the dataset
-	  object.  The wrapper also takes care of the single quoting that is
-	  required on some of the variables like title, ylabel, and xlabel.
-	
+*  Each of the gnuplot plot variables are modified using the variable name as a method name on the plot object or on the dataset object.  The wrapper also takes care of the single quoting that is required on some of the variables like @title@, @ylabel@, and @xlabel@.
       
-p.  The plot object simply has an array of DataSets.  The
-	  constructor initializes this empty array before yielding to the
-	  block.  This method uses the << operator to add the DataSet to
-	  the plot.
-	
+*  The plot object simply has an array of @DataSet@s.  The constructor initializes this empty array before yielding to the block.  This method uses the @<<@ operator to add the @DataSet@ to the plot.
       
-p.  When the plot block ends, if an IO object is given to the Plot
-	  constructor, the plot commands will be written to the IO object.
-	  Any object can be passed to the constructor as long as it
-	  understands the << operator.
+*  When the plot block ends, if an @IO@ object is given to the @Plot@ constructor, the plot commands will be written to the @IO@ object.  Any object can be passed to the constructor as long as it understands the @<<@ operator.
 	  
 <pre>
 Gnuplot.open do |gp|
@@ -130,13 +114,14 @@ end
 </pre>
 
 Or you can write it out to a file (the above snippet displays the graph, in Linux, but in windows you'd need to write it to a file).
-See the file examples/output_image_file.rb.
+
+See the file @examples/output_image_file.rb@.
 
 h3. Plotting discrete points
 
-Array data can be plotted quite easily since Arrays have a defined to_gplot method.
+Array data can be plotted quite easily since @Array@s have a defined @to_gplot@ method.
 
-Simply pass an array of data to the constructor of the DataSet object or set the data property of the DataSet. In this example, because there are two arrays, each array will be a single column of data to the gnuplot process.
+Simply pass an array of data to the constructor of the @DataSet@ object or set the data property of the @DataSet@. In this example, because there are two arrays, each array will be a single column of data to the gnuplot process.
 
 <pre>
 Gnuplot.open do |gp|
@@ -159,9 +144,9 @@ end
     
 h3. Multiple Data Sets
 
-As many data sets as are desired can be attached to a plot. Each of these can have their own plot modifiers. Notice in this example how the data array is explicitly set instead of using the << operator.
+As many data sets as are desired can be attached to a plot. Each of these can have their own plot modifiers. Notice in this example how the data array is explicitly set instead of using the @<<@ operator.
 
-Also in this example, the commands are not written to the Gnuplot process but are instead written to a File called gnuplot.dat. This file can later be run directly by a gnuplot process as it contains only the gnuplot commands.
+Also in this example, the commands are not written to the Gnuplot process but are instead written to a File called @gnuplot.dat@. This file can later be run directly by a gnuplot process as it contains only the gnuplot commands.
 
 <pre>
 File.open( "gnuplot.dat", "w") do |gp|
