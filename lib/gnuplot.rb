@@ -88,13 +88,13 @@ module Gnuplot
   # object set the various properties and add data sets.
 
   class Plot
-    attr_accessor :cmd, :data, :sets
+    attr_accessor :cmd, :data, :settings
 
     QUOTED = [ "title", "output", "xlabel", "x2label", "ylabel", "y2label", "clabel", "cblabel", "zlabel" ]
 
     def initialize (io = nil, cmd = "plot")
       @cmd = cmd
-      @sets = []
+      @settings = []
       @arbitrary_lines = []
       @data = []
       yield self if block_given?
@@ -125,7 +125,12 @@ module Gnuplot
 
     def set ( var, value = "" )
       value = "\"#{value}\"" if QUOTED.include? var unless value =~ /^'.*'$/
-      @sets << [ var, value ]
+      @settings << [ :set, var, value ]
+    end
+
+    # Unset a variable. +Var+ must be a gnuplot variable.
+    def unset ( var )
+        @settings << [ :unset, var ]
     end
 
 
@@ -134,8 +139,12 @@ module Gnuplot
     # gnuplot process.
 
     def [] ( var )
-      v = @sets.assoc( var )
-      v[1] || nil
+      v = @settings.rassoc( var )
+      if v.nil? or v.first == :unset
+          nil
+      else
+          v[2]
+      end
     end
 
 
@@ -145,7 +154,9 @@ module Gnuplot
 
 
     def to_gplot (io = "")
-      @sets.each { |var, val| io << "set #{var} #{val}\n" }
+      @settings.each do |setting|
+          io << setting.map(&:to_s).join(" ") << "\n"
+      end
       @arbitrary_lines.each{|line| io << line << "\n" }
 
       io
