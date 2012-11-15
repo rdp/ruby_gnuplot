@@ -1,3 +1,6 @@
+2.6.0
+* better readme, allow for unsetting variables, thanks @kot-behemoth and @evnu
+
 2.5.0
  * save output to instance variable, thanks for the patch.
 
