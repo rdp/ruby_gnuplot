@@ -182,8 +182,9 @@ module Gnuplot
     end
     
     def to_gplot (io = "")
-      @sets.each { |var, val| io << "set #{var} #{val}\n" }
-
+      @settings.each do |setting|
+          io << setting.map(&:to_s).join(" ") << "\n"
+      end
       io
     end
 
