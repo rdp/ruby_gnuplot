@@ -1,3 +1,6 @@
+2.6.1
+* TheKnight 	Fix bug in SPlot.to_gplot implementation. 
+
 2.6.0
 * better readme, allow for unsetting variables, thanks @kot-behemoth and @evnu
 
