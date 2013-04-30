@@ -97,6 +97,7 @@ module Gnuplot
       @settings = []
       @arbitrary_lines = []
       @data = []
+      @styles = []
       yield self if block_given?
       puts "writing this to gnuplot:\n" + to_gplot + "\n" if $VERBOSE
 
@@ -147,6 +148,64 @@ module Gnuplot
       end
     end
 
+    class Style
+      attr_accessor :linestyle, :linetype, :linewidth, :linecolor,
+        :pointtype, :pointsize, :fill, :index
+
+      alias :ls :linestyle
+      alias :lt :linetype
+      alias :lw :linewidth
+      alias :lc :linecolor
+      alias :pt :pointtype
+      alias :ps :pointsize
+      alias :fs :fill
+
+      alias :ls= :linestyle=
+      alias :lt= :linetype=
+      alias :lw= :linewidth=
+      alias :lc= :linecolor=
+      alias :pt= :pointtype=
+      alias :ps= :pointsize=
+      alias :fs= :fill=
+
+      STYLES = [:ls, :lt, :lw, :lc, :pt, :ps, :fs]
+
+      def Style.increment_index
+        @index ||= 0
+        @index += 1
+
+        @index
+      end
+
+      def initialize
+        STYLES.each do |s|
+          send("#{s}=", nil)
+        end
+        yield self if block_given?
+
+        # only set the index if the user didn't do it
+        @index = Style::increment_index if index.nil?
+      end
+
+      def to_s
+        str = "set style line #{index}"
+        STYLES.each do |s|
+          style = send(s)
+          if not style.nil?
+            str << " #{s} #{style}"
+          end
+        end
+
+        str
+      end
+    end
+
+    # Create a gnuplot linestyle
+    def style &blk
+      s = Style.new &blk
+      @styles << s
+      s
+    end
 
     def add_data ( ds )
       @data << ds
@@ -157,6 +216,7 @@ module Gnuplot
       @settings.each do |setting|
           io << setting.map(&:to_s).join(" ") << "\n"
       end
+      @styles.each{|s| io << s.to_s << "\n"}
       @arbitrary_lines.each{|line| io << line << "\n" }
 
       io
@@ -210,11 +270,15 @@ module Gnuplot
   # @todo Use the delegator to delegate to the data property.
 
   class DataSet 
-    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes, :index
+    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes, :index, :linestyle
+
+    alias :ls :linestyle
+    alias :ls= :linestyle=
   
     def initialize (data = nil)
       @data = data
-      @title = @with = @using = @linewidth = @linecolor = @matrix = @smooth = @axes = @index = nil # avoid warnings
+      @linestyle = @title = @with = @using = @linewidth = @linecolor = @matrix =
+          @smooth = @axes = @index = nil # avoid warnings
       yield self if block_given?
     end
         
@@ -245,6 +309,7 @@ module Gnuplot
       io << " with #{@with}" if @with
       io << " linecolor #{@linecolor}" if @linecolor
       io << " linewidth #{@linewidth}" if @linewidth
+      io << " linestyle #{@linestyle.index}" if @linestyle
       io
     end
 
