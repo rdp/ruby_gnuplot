@@ -4,6 +4,9 @@
 # classes.
 
 require 'matrix'
+require 'gnuplot/array'
+require 'gnuplot/matrix'
+require 'gnuplot/dataset'
 require 'gnuplot/plot'
 require 'gnuplot/splot'
 
@@ -81,139 +84,4 @@ module Gnuplot
     }
     return @output
   end
-
-  # Container for a single dataset being displayed by gnuplot.  Each object
-  # has a reference to the actual data being plotted as well as settings that
-  # control the "plot" command.  The data object must support the to_gplot
-  # command.
-  #
-  # +data+ The data that will be plotted.  The only requirement is that the
-  # object understands the to_gplot method.
-  #
-  # The following attributes correspond to their related string in the gnuplot
-  # command. See the gnuplot documentation for more information on this.
-  #
-  #   title, with
-  #
-  # @todo Use the delegator to delegate to the data property.
-
-  class DataSet
-    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes, :index, :linestyle
-
-    alias :ls :linestyle
-    alias :ls= :linestyle=
-
-    def initialize (data = nil)
-      @data = data
-      @linestyle = @title = @with = @using = @linewidth = @linecolor = @matrix =
-          @smooth = @axes = @index = nil # avoid warnings
-      yield self if block_given?
-    end
-
-    def notitle
-      @title = "notitle"
-    end
-
-    def plot_args (io = "")
-
-      # Order of these is important or gnuplot barfs on 'em
-
-      io << ( (@data.instance_of? String) ? @data : "'-'" )
-
-      io << " index #{@index}" if @index
-
-      io << " using #{@using}" if @using
-
-      io << " axes #{@axes}" if @axes
-
-      io << case @title
-            when /notitle/ then " notitle"
-            when nil       then ""
-            else " title '#{@title}'"
-            end
-
-      io << " matrix" if @matrix
-      io << " smooth #{@smooth}" if @smooth
-      io << " with #{@with}" if @with
-      io << " linecolor #{@linecolor}" if @linecolor
-      io << " linewidth #{@linewidth}" if @linewidth
-      io << " linestyle #{@linestyle.index}" if @linestyle
-      io
-    end
-
-    def to_gplot
-      case @data
-      when nil then nil
-      when String then nil
-      else @data.to_gplot
-      end
-    end
-
-    def to_gsplot
-      case @data
-      when nil then nil
-      when String then nil
-      else @data.to_gsplot
-      end
-    end
-
-  end
-end
-
-class Array
-  def to_gplot
-    if ( self[0].kind_of? Array ) then
-      tmp = self[0].zip( *self[1..-1] )
-      tmp.collect { |a| a.join(" ") }.join("\n") + "\ne"
-    elsif ( self[0].kind_of? Numeric ) then
-      s = ""
-      self.length.times { |i| s << "#{self[i]}\n" }
-      s
-    else
-      self[0].zip( *self[1..-1] ).to_gplot
-    end
-  end
-
-  def to_gsplot
-    f = ""
-
-    if ( self[0].kind_of? Array ) then
-      x = self[0]
-      y = self[1]
-      d = self[2]
-
-      x.each_with_index do |xv, i|
-        y.each_with_index do |yv, j|
-          f << [ xv, yv, d[i][j] ].join(" ") << "\n"
-        end
-        # f << "\n"
-      end
-    elsif ( self[0].kind_of? Numeric ) then
-      self.length.times do |i| f << "#{self[i]}\n" end
-    else
-      self[0].zip( *self[1..-1] ).to_gsplot
-    end
-
-    f
-  end
-end
-
-class Matrix
-  def to_gplot (x = nil, y = nil)
-    xgrid = x || (0...self.column_size).to_a
-    ygrid = y || (0...self.row_size).to_a
-
-    f = ""
-    ygrid.length.times do |j|
-      y = ygrid[j]
-      xgrid.length.times do |i|
-        if ( self[j,i] ) then
-          f << "#{xgrid[i]} #{y} #{self[j,i]}\n"
-        end
-      end
-    end
-
-    f
-  end
-
 end
