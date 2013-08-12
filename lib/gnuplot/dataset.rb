@@ -22,7 +22,8 @@ module Gnuplot
 
     def initialize (data = nil)
       @data = data
-      @linestyle = @title = @with = @using = @linewidth = @linecolor = @matrix = @smooth = @axes = @index = nil # avoid warnings
+      @linestyle = @title = @with = @using = @linewidth = @linecolor =
+          @matrix = @smooth = @axes = @index = nil # avoid warnings
       yield self if block_given?
     end
 

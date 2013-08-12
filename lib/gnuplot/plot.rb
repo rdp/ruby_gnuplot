@@ -7,14 +7,14 @@ module Gnuplot
   class Plot
     attr_accessor :cmd, :data, :settings
 
-    QUOTED = [ "title", "output", "xlabel", "x2label", "ylabel", "y2label", "clabel", "cblabel", "zlabel" ]
+    QUOTED = %w(title output xlabel x2label ylabel y2label clabel cblabel zlabel)
 
     def initialize (io = nil, cmd = "plot")
-      @cmd = cmd
-      @settings = []
+      @cmd             = cmd
+      @settings        = []
       @arbitrary_lines = []
-      @data = []
-      @styles = []
+      @data            = []
+      @styles          = []
       yield self if block_given?
       puts "writing this to gnuplot:\n" + to_gplot + "\n" if $VERBOSE
 
@@ -59,9 +59,9 @@ module Gnuplot
     def [] ( var )
       v = @settings.rassoc( var )
       if v.nil? or v.first == :unset
-          nil
+        nil
       else
-          v[2]
+        v[2]
       end
     end
 
