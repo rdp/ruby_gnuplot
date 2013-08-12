@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    gnuplot (2.6.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rake (10.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  gnuplot!
+  rake
