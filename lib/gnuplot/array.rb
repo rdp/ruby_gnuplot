@@ -1,6 +1,7 @@
 module Gnuplot
   module Array
     def to_gplot
+
       if ( self[0].kind_of? Array ) then
         tmp = self[0].zip( *self[1..-1] )
         tmp.collect { |a| a.join(" ") }.join("\n") + "\ne"
@@ -15,7 +16,6 @@ module Gnuplot
 
     def to_gsplot
       f = ""
-
       if ( self[0].kind_of? Array ) then
         x = self[0]
         y = self[1]
@@ -25,7 +25,7 @@ module Gnuplot
           y.each_with_index do |yv, j|
             f << [ xv, yv, d[i][j] ].join(" ") << "\n"
           end
-          # f << "\n"
+          f << "\n"
         end
       elsif ( self[0].kind_of? Numeric ) then
         self.length.times do |i| f << "#{self[i]}\n" end

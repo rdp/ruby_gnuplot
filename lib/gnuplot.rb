@@ -4,11 +4,11 @@
 # classes.
 
 require 'matrix'
-require 'gnuplot/array'
-require 'gnuplot/matrix'
-require 'gnuplot/dataset'
-require 'gnuplot/plot'
-require 'gnuplot/splot'
+require_relative 'gnuplot/array'
+require_relative 'gnuplot/matrix'
+require_relative 'gnuplot/dataset'
+require_relative 'gnuplot/plot'
+require_relative 'gnuplot/splot'
 
 module Gnuplot
 

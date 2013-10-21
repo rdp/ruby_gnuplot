@@ -5,7 +5,7 @@ module Gnuplot
   class SPlot < Plot
 
     def initialize (io = nil, cmd = "splot")
-      super
+	  super
     end
 
     # Currently using the implementation from parent class Plot.
@@ -13,6 +13,18 @@ module Gnuplot
     # implementation for SPlot in the future.
     def to_gplot (io = "")
       super
+    end
+
+    def store_datasets (io = "")
+      if @data.size > 0
+        io << @cmd << " " << @data.collect { |e| e.plot_args }.join(", ")
+        io << "\n"
+
+        v = @data.collect { |ds| ds.to_gsplot }
+        io << v.compact.join("e\n")
+      end
+
+      io
     end
 
   end

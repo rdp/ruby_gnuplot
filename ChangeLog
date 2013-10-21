@@ -1,3 +1,6 @@
+2.6.2
+* adding to_gsplot for SPlot images, now you can draw HeatMap using [x, y, d ] arrays
+
 2.6.1
 * TheKnight 	Fix bug in SPlot.to_gplot implementation. 
 
