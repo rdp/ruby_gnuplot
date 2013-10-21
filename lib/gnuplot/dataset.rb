@@ -14,15 +14,32 @@ module Gnuplot
   #
   # @todo Use the delegator to delegate to the data property.
 
+  module Color
+	BLACK = -1
+	RED = 1
+    GREEN = 2
+    BLUE = 3
+  end
+  module PointType
+	DOTTED = 0
+	PLUS = 1
+	X = 2
+	MULTIPLY = 3
+	EMPTY_SQUARE = 4
+	FILLED_SQUARE = 5
+	EMPTY_CIRCLE = 6
+	FILLED_CIRCLE = 7
+  end
+
   class DataSet
-    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes, :index, :linestyle
+    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes, :index, :linestyle, :pointtype, :pointsize 
 
     alias :ls :linestyle
     alias :ls= :linestyle=
 
     def initialize (data = nil)
       @data = data
-      @linestyle = @title = @with = @using = @linewidth = @linecolor =
+      @linestyle = @title = @with = @using = @linewidth = @linecolor = @pointtype = @pointsize 
           @matrix = @smooth = @axes = @index = nil # avoid warnings
       yield self if block_given?
     end
@@ -55,6 +72,8 @@ module Gnuplot
       io << " linecolor #{@linecolor}" if @linecolor
       io << " linewidth #{@linewidth}" if @linewidth
       io << " linestyle #{@linestyle.index}" if @linestyle
+	  io << " pointtype #{@pointtype}" if @pointtype
+	  io << " pointsize #{@pointsize}" if @pointsize
       io
     end
 

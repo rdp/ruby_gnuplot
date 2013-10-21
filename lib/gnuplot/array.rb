@@ -17,24 +17,45 @@ module Gnuplot
     def to_gsplot
       f = ""
       if ( self[0].kind_of? Array ) then
-        x = self[0]
-        y = self[1]
-        d = self[2]
-
-        x.each_with_index do |xv, i|
-          y.each_with_index do |yv, j|
-            f << [ xv, yv, d[i][j] ].join(" ") << "\n"
-          end
-          f << "\n"
-        end
+		if self.size == 2
+			f = to_gsplot2d()
+		else
+			f = to_gsplot3d()
+		end
       elsif ( self[0].kind_of? Numeric ) then
-        self.length.times do |i| f << "#{self[i]}\n" end
+     	self.length.times do |i| f << "#{self[i]}\n" end
       else
         self[0].zip( *self[1..-1] ).to_gsplot
       end
-
       f
     end
+	private
+	def to_gsplot2d
+	    f = ""
+        x = self[0]
+        y = self[1]
+        x.each_with_index do |xv, i|
+          y.each_with_index do |yv, j|
+            f << [ xv, yv, 0 ].join(" ") << "\n"
+          end
+          f << "\n"
+        end
+		f
+	end
+	def to_gsplot3d
+	  f = ""
+      x = self[0]
+      y = self[1]
+      d = self[2]
+
+      x.each_with_index do |xv, i|
+          y.each_with_index do |yv, j|
+              f << [ xv, yv, d[i][j] ].join(" ") << "\n"
+          end
+          f << "\n"
+      end
+	  f
+	end
   end
 end
 

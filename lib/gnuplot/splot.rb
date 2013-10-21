@@ -16,6 +16,7 @@ module Gnuplot
     end
 
     def store_datasets (io = "")
+
       if @data.size > 0
         io << @cmd << " " << @data.collect { |e| e.plot_args }.join(", ")
         io << "\n"
