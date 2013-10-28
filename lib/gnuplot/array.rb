@@ -35,10 +35,8 @@ module Gnuplot
         x = self[0]
         y = self[1]
         x.each_with_index do |xv, i|
-          y.each_with_index do |yv, j|
+			yv = y[ i ]
             f << [ xv, yv, 0 ].join(" ") << "\n"
-          end
-          f << "\n"
         end
 		f
 	end
@@ -47,13 +45,20 @@ module Gnuplot
       x = self[0]
       y = self[1]
       d = self[2]
+	  type = self[3]
 
-      x.each_with_index do |xv, i|
-          y.each_with_index do |yv, j|
-              f << [ xv, yv, d[i][j] ].join(" ") << "\n"
-          end
-          f << "\n"
-      end
+	  if ( type == :points )
+	      x.each_with_index do |xv, i|
+       	      f << [ xv, y[i], d[i] ].join(" ") << "\n"
+		  end		
+	  else
+	      x.each_with_index do |xv, i|
+    	      y.each_with_index do |yv, j|
+        	      f << [ xv, yv, d[i][j] ].join(" ") << "\n"
+       	   end
+      	    f << "\n"
+      	end
+	  end
 	  f
 	end
   end
