@@ -1,12 +1,5 @@
-require 'jeweler2'
-Jeweler::Tasks.new do |s|
-  s.name = 'gnuplot'
-  s.description = s.summary = "Utility library to aid in interacting with gnuplot from ruby"
-  s.version = "2.6.1"
-  s.authors='roger pack'
-  s.email = "rogerpack2005@gmail.com"
-  s.homepage = "http://github.com/rdp/ruby_gnuplot/tree/master"
-end
+require 'bundler'
+Bundler::GemHelper.install_tasks
 
 desc 'run unit tests'
 task :test do
@@ -16,4 +9,4 @@ task :test do
   end
 end
 
-Jeweler::RubygemsDotOrgTasks.new
+task :default => :test
