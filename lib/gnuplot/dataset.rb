@@ -32,7 +32,8 @@ module Gnuplot
   end
 
   class DataSet
-    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes, :index, :linestyle, :pointtype, :pointsize 
+    attr_accessor :title, :with, :using, :data, :linewidth, :linecolor, :matrix, :smooth, :axes, :index
+    attr_accessor :linestyle, :pointtype, :pointsize, :fs, :fc
 
     alias :ls :linestyle
     alias :ls= :linestyle=
@@ -40,7 +41,7 @@ module Gnuplot
     def initialize (data = nil)
       @data = data
       @linestyle = @title = @with = @using = @linewidth = @linecolor = @pointtype = @pointsize 
-          @matrix = @smooth = @axes = @index = nil # avoid warnings
+          @matrix = @smooth = @axes = @index = @fs = @fc = nil # avoid warnings
       yield self if block_given?
     end
 
@@ -69,6 +70,8 @@ module Gnuplot
       io << " matrix" if @matrix
       io << " smooth #{@smooth}" if @smooth
       io << " with #{@with}" if @with
+	  io << " fc #{@fs}" if @fc
+	  io << " fs #{@fs}" if @fs
       io << " linecolor #{@linecolor}" if @linecolor
       io << " linewidth #{@linewidth}" if @linewidth
       io << " linestyle #{@linestyle.index}" if @linestyle
