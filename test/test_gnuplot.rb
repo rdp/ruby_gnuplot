@@ -4,13 +4,21 @@ require '../lib/gnuplot'
 require 'test/unit'
 
 class StdDataTest < Test::Unit::TestCase
-    
+
   def test_array_1d
     data = (0..5).to_a
     ds = Gnuplot::DataSet.new( data )
-    
+
     assert data == ds.data
     assert data.join("\n") + "\n", ds.to_gplot
+  end
+
+  def test_empty_array
+    data = []
+    ds = Gnuplot::DataSet.new( data )
+
+    assert data == ds.data
+    assert "" == ds.to_gplot
   end
 
 
@@ -20,10 +28,10 @@ class StdDataTest < Test::Unit::TestCase
     d1 = (0..3).to_a
     d2 = d1.collect { |v| 3 * v }
     d3 = d2.collect { |v| 4 * v }
-    
+
     data = [ d1, d2, d3 ]
     ds = Gnuplot::DataSet.new( data )
-    
+
     assert data == ds.data
     assert "0 0 0\n1 3 12\n2 6 24\n3 9 36\n", ds.to_gplot
   end
@@ -34,24 +42,24 @@ class DataSetTest < Test::Unit::TestCase
 
   def test_yield_ctor
     ds = Gnuplot::DataSet.new do |ds|
-      ds.with = "lines" 
+      ds.with = "lines"
       ds.using = "1:2"
       ds.data = [ [0, 1, 2], [1, 2, 5] ]
     end
-    
+
     assert "lines", ds.with
     assert "1:2",   ds.using
     assert nil == ds.title
     assert [ [0, 1, 2], [1, 2, 5] ] == ds.data
     assert "'-' using 1:2 with lines",  ds.plot_args
-    assert "0 1\n1 2\n2 5\n", ds.to_gplot 
+    assert "0 1\n1 2\n2 5\n", ds.to_gplot
   end
-  
+
 end
 
 
 class PlotTest < Test::Unit::TestCase
-  
+
   def test_no_data
     plot = Gnuplot::Plot.new do |p|
       p.set "output", "'foo'"
@@ -60,10 +68,10 @@ class PlotTest < Test::Unit::TestCase
     end
 
     assert( plot.settings ==
-		 [ [:set, "output", "'foo'"], 
+		 [ [:set, "output", "'foo'"],
 		   [:set, "terminal", "postscript enhanced"],
                    [:unset, "border"] ] )
-    
+
 
     assert( plot.to_gplot, \
 		 "set output 'foo'\nset terminal postscript enhanced\n" )
@@ -109,7 +117,7 @@ class PlotTest < Test::Unit::TestCase
       assert s2.index == 2, "index must be incremented"
 
       ds = Gnuplot::DataSet.new do |ds|
-        ds.with = "lines" 
+        ds.with = "lines"
         ds.linestyle = s1
         ds.data = [ [0, 1, 2], [1, 2, 5] ]
       end
@@ -134,7 +142,7 @@ class GnuplotModuleTest
 
   def test_which
     # Put the spaces around the command to make sure that it gets stripped
-    # properly. 
+    # properly.
     assert( CONFIG["SHELL"], Gnuplot::which(" sh " ) )
     assert( CONFIG["SHELL"], Gnuplot::which( CONFIG["SHELL"] ) )
   end
@@ -151,10 +159,10 @@ class GnuplotModuleTest
     # name (one that is in the path) then I should get the shell name as the
     # result of the gnuplot call.
 
-    ENV["RB_GNUPLOT"] = "sh" 
+    ENV["RB_GNUPLOT"] = "sh"
     assert( CONFIG["SHELL"], Gnuplot.gnuplot(false) )
   end
-      
+
 end
 
 
