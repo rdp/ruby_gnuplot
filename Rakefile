@@ -8,6 +8,8 @@ Jeweler::Tasks.new do |s|
   s.homepage = "http://github.com/rdp/ruby_gnuplot/tree/master"
 end
 
+task :default => :test
+
 desc 'run unit tests'
 task :test do
   Dir.chdir 'test'
