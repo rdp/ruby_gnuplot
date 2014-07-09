@@ -7,9 +7,7 @@ require 'rubygems/package_task'
 require_relative 'lib/ruby_gnuplot/version'
 
 desc 'run unit tests'
-task :default => [:test]
-
-task :build
+task :default => :test
 
 Rake::TestTask.new do |t|
   t.libs << "lib" << 'spec/support'
