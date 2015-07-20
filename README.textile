@@ -14,6 +14,17 @@ h2.  History and Background
       been using it actively ever since. Now rdp maintains it.
       See also the changelog for more detail.
     
+h2.  Pre-requisites and Installation
+
+      1. Install XQuartz from here: 
+	     @http://xquartz.macosforge.org/landing/@
+	  
+	  2. Install gnuplot with homebrew:
+	     @brew install gnuplot --with-x11@
+	  
+	  3. Install gnuplot gem:
+	     @gem install gnuplot@
+	  
 h2.  Ruby Gnuplot Concepts 
 
       Gnuplot has a very simple conceptual model.  Calls to _Set_ are
@@ -29,11 +40,11 @@ h2.  Ruby Gnuplot Concepts
       plot:
     
     
-#     Instantiate a @Plot@ or @Splot@ object and set parameters by gnuplot variable name. 
+	  1.     Instantiate a @Plot@ or @Splot@ object and set parameters by gnuplot variable name. 
 
-#     Instantiate @DataSet@ objects and attach Ruby objects containing the data to be plotted to the @DataSet@. Attach properties that modify the plot command using the modifier name.
+	  2.     Instantiate @DataSet@ objects and attach Ruby objects containing the data to be plotted to the @DataSet@. Attach properties that modify the plot command using the modifier name.
       
-#     Send the @Plot@/@Splot@ object to a @Gnuplot@ instance for plotting.  
+	  3.     Send the @Plot@/@Splot@ object to a @Gnuplot@ instance for plotting.  
 
       The Version 2.0 interface makes very heavy use of blocks leading to very
       readable code.
