@@ -30,7 +30,7 @@ h2.  Ruby Gnuplot Concepts
       Gnuplot has a very simple conceptual model.  Calls to _Set_ are
       made to set parameters and either _Plot_ or _Splot_ is
       called to generate the actual plot.  The _dataset_ to be 
-      plotted can be specified in a number of ways, contained in a seperate
+      plotted can be specified in a number of ways, contained in a separate
       file, generated from a function, read from standard input, or read
       immediately after the plot command.
     
