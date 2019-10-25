@@ -1,0 +1,17 @@
+version: '3'
+services:
+  base: &base
+    image: ruby_gnuplot
+    working_dir: /home/gnuplot/gnuplot
+    volumes:
+      - .:/home/gnuplot/gnuplot
+
+  base_build:
+    <<: *base
+    build: .
+    command: echo done
+
+  ruby_gnuplot:
+    <<: *base
+    container_name: ruby_gnuplot
+    depends_on: [base_build]
