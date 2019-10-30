@@ -1,21 +1,23 @@
-require 'jeweler2'
-Jeweler::Tasks.new do |s|
-  s.name = 'gnuplot'
-  s.description = s.summary = "Utility library to aid in interacting with gnuplot from ruby"
-  s.version = "2.6.1"
-  s.authors='roger pack'
-  s.email = "rogerpack2005@gmail.com"
-  s.homepage = "http://github.com/rdp/ruby_gnuplot/tree/master"
-end
+require "bundler/gem_tasks"
+require 'rake'
+require 'rake/clean'
+require 'rake/testtask'
+require 'rubygems/package_task'
 
-task :default => :test
+require_relative 'lib/ruby_gnuplot/version'
 
 desc 'run unit tests'
-task :test do
-  Dir.chdir 'test'
-  for file in Dir['*']
-    system("ruby #{file}")
-  end
+task :default => :test
+
+Rake::TestTask.new do |t|
+  t.libs << "lib" << 'spec/support'
+  t.test_files = FileList['test/**/*.rb']
+  t.verbose = false
+  t.warning = false
 end
 
-Jeweler::RubygemsDotOrgTasks.new
+def gemspec
+  @clean_gemspec ||= eval(File.read(File.expand_path('../ruby_gnuplot.gemspec', __FILE__)))
+end
+
+Gem::PackageTask.new(gemspec) { |pkg| }

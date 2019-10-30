@@ -1,9 +1,9 @@
 # -*- ruby -*-
 
-require '../lib/gnuplot'
-require 'test/unit'
+require 'gnuplot'
+require 'minitest/autorun'
 
-class StdDataTest < Test::Unit::TestCase
+class StdDataTest < MiniTest::Test
 
   def test_array_1d
     data = (0..5).to_a
@@ -38,7 +38,7 @@ class StdDataTest < Test::Unit::TestCase
 end
 
 
-class DataSetTest < Test::Unit::TestCase
+class DataSetTest < MiniTest::Test
 
   def test_yield_ctor
     ds = Gnuplot::DataSet.new do |ds|
@@ -58,7 +58,7 @@ class DataSetTest < Test::Unit::TestCase
 end
 
 
-class PlotTest < Test::Unit::TestCase
+class PlotTest < MiniTest::Test
 
   def test_no_data
     plot = Gnuplot::Plot.new do |p|
@@ -130,7 +130,7 @@ end
 
 
 require 'rbconfig'
-CONFIG = Config::MAKEFILE_CONFIG
+CONFIG = RbConfig::MAKEFILE_CONFIG
 
 # This attempts to test the functions that comprise the gnuplot package.  Most
 # of the bug reports that I get for this package have to do with finding the
