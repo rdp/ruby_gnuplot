@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ruby_gnuplot:
+    build: .
+    working_dir: /home/gnuplot/gnuplot
+    container_name: ruby_gnuplot
+    command: /bin/bash
+    volumes:
+      - .:/home/gnuplot/gnuplot
