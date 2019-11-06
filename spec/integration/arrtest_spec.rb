@@ -2,8 +2,13 @@ describe "Array Plot Example" do
   let(:file_path)    { 'spec/tmp/array_plot.eps' }
   let(:fixture_path) { 'spec/fixtures/plots/array_plot.eps' }
 
-  let(:file_content)    { File.read(file_path) }
-  let(:fixture_content) { File.read(fixture_path) }
+  let(:file_content) do
+    File.read(file_path).gsub(/CreationDate.*/, "")
+  end
+
+  let(:fixture_content) do
+    File.read(fixture_path).gsub(/CreationDate.*/, "")
+  end
 
   before do
     path = file_path
