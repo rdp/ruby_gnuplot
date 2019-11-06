@@ -19,8 +19,8 @@ describe "Array Plot Example" do
         plot.title  "Array Plot Example"
         plot.ylabel "x"
         plot.xlabel "x^2"
-        plot.set "term","postscript eps"
-        plot.set "out", "'#{path}'"
+        plot.set    "term","postscript eps"
+        plot.set    "out", "'#{path}'"
 
         x = (0..50).collect { |v| v.to_f }
         y = x.collect { |v| v ** 2 }
