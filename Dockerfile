@@ -10,6 +10,8 @@ WORKDIR /home/gnuplot/gnuplot
 
 USER gnuplot
 
-COPY ./ ./
+COPY lib/ ./lib/
+COPY *.gemspec ./
+COPY Gemfile ./
 
 RUN gem install bundler; bundle install
