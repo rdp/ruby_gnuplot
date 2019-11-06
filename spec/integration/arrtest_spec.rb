@@ -38,7 +38,7 @@ describe "Array Plot Example" do
     File.delete(file_path)
   end
 
-  it do
+  it "plots expected file" do
     expect(file_content).to eq(fixture_content)
   end
 end
