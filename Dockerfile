@@ -9,4 +9,9 @@ RUN useradd -u 1000 gnuplot; \
 WORKDIR /home/gnuplot/gnuplot
 
 USER gnuplot
-RUN gem install jeweler2
+
+COPY lib/ ./lib/
+COPY *.gemspec ./
+COPY Gemfile ./
+
+RUN gem install bundler; bundle install
