@@ -1,6 +1,6 @@
-describe "Sin Wave Plot Example" do
-  let(:file_path)    { 'spec/tmp/sin_wave_plot.eps' }
-  let(:fixture_path) { 'spec/fixtures/plots/sin_wave_plot.eps' }
+describe "Multtest Plot Example" do
+  let(:file_path)    { 'spec/tmp/multtest_plot.eps' }
+  let(:fixture_path) { 'spec/fixtures/plots/multtest_plot.eps' }
 
   let(:file_content) do
     File.read(file_path).gsub(/CreationDate.*/, "")
@@ -47,7 +47,7 @@ describe "Sin Wave Plot Example" do
   end
 
   after do
-    File.delete(file_path)
+   File.delete(file_path)
   end
 
   it "plots expected file" do
