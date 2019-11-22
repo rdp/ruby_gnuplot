@@ -14,14 +14,14 @@ Gnuplot.open do |gp|
 
     plot.data = [
       Gnuplot::DataSet.new( "sin(x)" ) { |ds|
-	ds.with = "lines"
-	ds.title = "String function"
-	ds.linewidth = 4
+        ds.with = "lines"
+        ds.title = "String function"
+        ds.linewidth = 4
       },
 
       Gnuplot::DataSet.new( [x, y] ) { |ds|
-	ds.with = "linespoints"
-	ds.title = "Array data"
+        ds.with = "linespoints"
+        ds.title = "Array data"
       }
     ]
 

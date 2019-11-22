@@ -14,7 +14,7 @@ describe "Histogram Plot Example" do
     path = file_path
     RandomGenerator.seed(0.17)
 
-    collection = (0..500).collect do |_v|
+    collection = (0..500).collect do
       (RandomGenerator.rand-0.5)**3
     end
 
