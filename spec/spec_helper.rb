@@ -20,6 +20,10 @@ end
 
 require "gnuplot"
 
+support_files = File.expand_path('spec/support/**/*.rb')
+
+Dir[support_files].sort.each { |file| require file }
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

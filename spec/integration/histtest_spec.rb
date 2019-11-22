@@ -12,8 +12,10 @@ describe "Histogram Plot Example" do
 
   before do
     path = file_path
+    RandomGenerator.seed(0.17)
+
     collection = (0..500).collect do |_v|
-      (rand()-0.5)**3
+      (RandomGenerator.rand-0.5)**3
     end
 
     Gnuplot.open do |gp|
