@@ -1,3 +1,15 @@
+shared_examples 'quotes value when setting in a plot for' do |field|
+  describe "##{field}" do
+    before do
+      plot.public_send(field, 'text')
+    end
+
+    it 'quotes value when setting it' do
+      expect(plot.to_gplot).to eq("set #{field} \"text\"\n")
+    end
+  end
+end
+
 describe Gnuplot::Plot do
   subject(:plot) { described_class.new }
 
@@ -64,4 +76,14 @@ describe Gnuplot::Plot do
       end
     end
   end
+
+  it_behaves_like 'quotes value when setting in a plot for', :title
+  it_behaves_like 'quotes value when setting in a plot for', :output
+  it_behaves_like 'quotes value when setting in a plot for', :xlabel
+  it_behaves_like 'quotes value when setting in a plot for', :x2label
+  it_behaves_like 'quotes value when setting in a plot for', :ylabel
+  it_behaves_like 'quotes value when setting in a plot for', :y2label
+  it_behaves_like 'quotes value when setting in a plot for', :clabel
+  it_behaves_like 'quotes value when setting in a plot for', :cblabel
+  it_behaves_like 'quotes value when setting in a plot for', :zlabel
 end
