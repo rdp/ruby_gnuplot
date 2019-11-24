@@ -87,7 +87,33 @@ describe Gnuplot::Plot do
   it_behaves_like 'quotes value when setting in a plot for', :cblabel
   it_behaves_like 'quotes value when setting in a plot for', :zlabel
 
-  describe '[]' do
+  describe '#unset' do
+    let(:expected_string) do
+      [
+        'set title "My Title"',
+        'unset title',
+        ''
+      ].join("\n")
+    end
+
+    before do
+      plot.title 'My Title'
+    end
+
+    # TODO: check specification
+    xit 'changes value in current settings' do
+      expect { plot.unset 'title' }
+        .to change { plot['title'] }
+        .from('My title').to(nil)
+    end
+
+    it 'unsets key on output' do
+      plot.unset 'title'
+      expect(plot.to_gplot).to eq(expected_string)
+    end
+  end
+
+  describe '#[]' do
     context 'when value was never set' do
       it { expect(plot['key']).to be_nil }
     end
