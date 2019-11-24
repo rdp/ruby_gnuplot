@@ -47,5 +47,21 @@ describe Gnuplot::Plot do
         expect(plot.to_gplot).to eq(expected_string)
       end
     end
+
+    context "when setting from inside initialization" do
+      subject(:plot) do
+        described_class.new do |p|
+          p.title  "Array Plot Example"
+          p.ylabel "x"
+          p.xlabel "x^2"
+          p.term   "postscript eps"
+          p.output "file.eps"
+        end
+      end
+
+      it "wraps strings with quotes when needed" do
+        expect(plot.to_gplot).to eq(expected_string)
+      end
+    end
   end
 end
