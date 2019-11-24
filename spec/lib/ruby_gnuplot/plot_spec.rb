@@ -86,4 +86,59 @@ describe Gnuplot::Plot do
   it_behaves_like 'quotes value when setting in a plot for', :clabel
   it_behaves_like 'quotes value when setting in a plot for', :cblabel
   it_behaves_like 'quotes value when setting in a plot for', :zlabel
+
+  describe '[]' do
+    context 'when value was never set' do
+      it { expect(plot['key']).to be_nil }
+    end
+
+    context 'when value was only unset' do
+      before { plot.unset 'title' }
+
+      it { expect(plot['title']).to be_nil }
+    end
+
+    context 'when value was set only once' do
+      before { plot.title "My Title" }
+
+      it "returns the value to be used (quoted when needed)" do
+        expect(plot['title']).to eq('"My Title"')
+      end
+    end
+
+    context 'when value was set twice' do
+      before do
+        plot.title "My Title"
+        plot.title "My New Title"
+      end
+
+      # TODO: check specification
+      xit "returns the last value set" do
+        expect(plot['title']).to eq('"My New Title"')
+      end
+    end
+
+    context 'when value was set then unset' do
+      before do
+        plot.title "My Title"
+        plot.unset "title"
+      end
+
+      # TODO: check specification
+      xit { expect(plot['title']).to be_nil }
+    end
+
+    context 'when value was set, unset and set again' do
+      before do
+        plot.title "My Title"
+        plot.unset "title"
+        plot.title "My New Title"
+      end
+
+      # TODO: check specification
+      xit "returns the last value set" do
+        expect(plot['title']).to eq('"My New Title"')
+      end
+    end
+  end
 end
