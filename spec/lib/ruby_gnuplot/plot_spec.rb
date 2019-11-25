@@ -177,4 +177,22 @@ describe Gnuplot::Plot do
       end
     end
   end
+
+  describe 'method missing' do
+    it 'delegates to set call' do
+      expect { plot.fake_field('value') }
+        .to change(plot, :settings)
+        .from([])
+        .to([[:set, 'fake_field', 'value']])
+    end
+
+    context 'when field should be quoted' do
+      it 'delegates to set call and quote it' do
+        expect { plot.output('value') }
+          .to change(plot, :settings)
+          .from([])
+          .to([[:set, 'output', '"value"']])
+      end
+    end
+  end
 end
