@@ -7,6 +7,16 @@ shared_examples 'quotes value when setting in a plot for' do |field|
     it 'quotes value when setting it' do
       expect(plot.to_gplot).to eq("set #{field} \"text\"\n")
     end
+
+    it 'enquees into settings' do
+      expect { plot.public_send(field, 'new text') }
+        .to change(plot, :settings)
+        .from([[:set, field.to_s, '"text"']])
+        .to([
+          [:set, field.to_s, '"text"'],
+          [:set, field.to_s, '"new text"']
+      ])
+    end
   end
 end
 
