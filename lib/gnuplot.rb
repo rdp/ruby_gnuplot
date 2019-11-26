@@ -140,7 +140,7 @@ module Gnuplot
     # gnuplot process.
 
     def [] ( var )
-      v = @settings.rassoc( var )
+      v = @settings.reverse.rassoc( var )
       if v.nil? or v.first == :unset
           nil
       else
