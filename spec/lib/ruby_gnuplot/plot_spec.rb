@@ -111,10 +111,10 @@ describe Gnuplot::Plot do
     end
 
     # TODO: check specification
-    xit 'changes value in current settings' do
+    it 'changes value in current settings' do
       expect { plot.unset 'title' }
         .to change { plot['title'] }
-        .from('My title').to(nil)
+        .from('"My Title"').to(nil)
     end
 
     it 'unsets key on output' do
@@ -149,7 +149,7 @@ describe Gnuplot::Plot do
       end
 
       # TODO: check specification
-      xit "returns the last value set" do
+      it "returns the last value set" do
         expect(plot['title']).to eq('"My New Title"')
       end
     end
@@ -161,7 +161,7 @@ describe Gnuplot::Plot do
       end
 
       # TODO: check specification
-      xit { expect(plot['title']).to be_nil }
+      it { expect(plot['title']).to be_nil }
     end
 
     context 'when value was set, unset and set again' do
@@ -172,7 +172,7 @@ describe Gnuplot::Plot do
       end
 
       # TODO: check specification
-      xit "returns the last value set" do
+      it "returns the last value set" do
         expect(plot['title']).to eq('"My New Title"')
       end
     end
