@@ -15,7 +15,7 @@ describe "Histogram Plot Example" do
     RandomGenerator.seed(0.17)
 
     collection = (0..500).collect do
-      (RandomGenerator.rand-0.5)**3
+      (RandomGenerator.rand - 0.5)**3
     end
 
     Gnuplot.open do |gp|
@@ -37,7 +37,6 @@ describe "Histogram Plot Example" do
         plot.output path
       end
     end
-
   end
 
   after do

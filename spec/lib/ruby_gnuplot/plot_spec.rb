@@ -4,6 +4,13 @@ shared_examples 'quotes value when setting in a plot for' do |field|
       plot.public_send(field, 'text')
     end
 
+    let(:expected_settings) do
+      [
+        [:set, field.to_s, '"text"'],
+        [:set, field.to_s, '"new text"']
+      ]
+    end
+
     it 'quotes value when setting it' do
       expect(plot.to_gplot).to eq("set #{field} \"text\"\n")
     end
@@ -12,10 +19,7 @@ shared_examples 'quotes value when setting in a plot for' do |field|
       expect { plot.public_send(field, 'new text') }
         .to change(plot, :settings)
         .from([[:set, field.to_s, '"text"']])
-        .to([
-          [:set, field.to_s, '"text"'],
-          [:set, field.to_s, '"new text"']
-      ])
+        .to(expected_settings)
     end
   end
 end
@@ -34,7 +38,6 @@ describe Gnuplot::Plot do
         ''
       ].join("\n")
     end
-
 
     context 'when nothing has been set' do
       it "returns an empty string" do

@@ -12,7 +12,7 @@ class RandomGenerator
 
     def seed(value)
       @rand = value.abs % 1
-      @rand = nil if @rand == 0
+      @rand = nil if @rand.zero?
     end
   end
 end

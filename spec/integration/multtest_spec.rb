@@ -15,7 +15,6 @@ describe "Multtest Plot Example" do
 
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
-
         plot.xrange "[-10:10]"
         plot.title  "Sin Wave Example"
         plot.ylabel "x"
@@ -24,34 +23,30 @@ describe "Multtest Plot Example" do
         plot.term   "postscript eps"
         plot.output path
 
-        x = (0..50).collect { |v| v.to_f }
-        y = x.collect { |v| v ** 2 }
+        x = (0..50).collect(&:to_f)
+        y = x.collect { |v| v**2 }
 
         plot.data = [
-          Gnuplot::DataSet.new( "sin(x)" ) { |ds|
+          Gnuplot::DataSet.new( "sin(x)" ) do |ds|
             ds.with = "lines"
             ds.title = "String function"
             ds.linewidth = 4
-          },
+          end,
 
-          Gnuplot::DataSet.new( [x, y] ) { |ds|
+          Gnuplot::DataSet.new( [x, y] ) do |ds|
             ds.with = "linespoints"
             ds.title = "Array data"
-          }
+          end
         ]
-
       end
-
     end
-
   end
 
   after do
-   File.delete(file_path)
+    File.delete(file_path)
   end
 
   it "plots expected file" do
     expect(file_content).to eq(fixture_content)
   end
 end
-

@@ -15,7 +15,6 @@ describe "Sin Wave Plot Example" do
 
     Gnuplot.open do |gp|
       Gnuplot::Plot.new( gp ) do |plot|
-
         plot.xrange "[-10:10]"
         plot.title  "Sin Wave Example"
         plot.ylabel "x"
@@ -28,11 +27,8 @@ describe "Sin Wave Plot Example" do
           ds.with = "lines"
           ds.linewidth = 4
         end
-
       end
-
     end
-
   end
 
   after do
@@ -43,4 +39,3 @@ describe "Sin Wave Plot Example" do
     expect(file_content).to eq(fixture_content)
   end
 end
-
