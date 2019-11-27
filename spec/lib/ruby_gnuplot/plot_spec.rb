@@ -198,4 +198,23 @@ describe Gnuplot::Plot do
       end
     end
   end
+
+  describe '#style' do
+    subject(:plot) do
+      described_class.new do |p|
+        p.title 'My title'
+        p.style do |style|
+          style.ls = 1
+        end
+      end
+    end
+
+    let(:expected_output) do
+      /^set title "My title"\nset style line \d+ ls 1\n$/
+    end
+
+    it 'adds style to gplot output' do
+      expect(plot.to_gplot).to match(expected_output)
+    end
+  end
 end

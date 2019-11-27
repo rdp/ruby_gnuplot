@@ -7,3 +7,7 @@ AllCops:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/**/*_spec.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
