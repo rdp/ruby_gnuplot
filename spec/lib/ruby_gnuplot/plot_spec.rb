@@ -113,7 +113,6 @@ describe Gnuplot::Plot do
       plot.title 'My Title'
     end
 
-    # TODO: check specification
     it 'changes value in current settings' do
       expect { plot.unset 'title' }
         .to change { plot['title'] }
@@ -151,7 +150,6 @@ describe Gnuplot::Plot do
         plot.title "My New Title"
       end
 
-      # TODO: check specification
       it "returns the last value set" do
         expect(plot['title']).to eq('"My New Title"')
       end
@@ -163,7 +161,6 @@ describe Gnuplot::Plot do
         plot.unset "title"
       end
 
-      # TODO: check specification
       it { expect(plot['title']).to be_nil }
     end
 
@@ -174,7 +171,6 @@ describe Gnuplot::Plot do
         plot.title "My New Title"
       end
 
-      # TODO: check specification
       it "returns the last value set" do
         expect(plot['title']).to eq('"My New Title"')
       end
