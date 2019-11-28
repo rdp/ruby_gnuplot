@@ -52,7 +52,7 @@ describe Gnuplot::DataSet do
       end
     end
 
-    context 'when setting attributes' do
+    context 'when setting attributes in a block' do
       subject(:data_set) do
         described_class.new do |ds|
           ds.with  = 'lines'
@@ -64,6 +64,25 @@ describe Gnuplot::DataSet do
       it 'returns only the data' do
         expect(data_set.to_gplot)
           .to eq("0 1\n1 2\n2 5\ne")
+      end
+    end
+  end
+
+  describe '#plot_args' do
+    context 'when setting attributes on initialize block' do
+      subject(:data_set) do
+        described_class.new do |ds|
+          ds.with  = 'lines'
+          ds.using = '1:2'
+          ds.data = data
+        end
+      end
+
+      let(:data) { [ [0, 1, 2], [1, 2, 5] ] }
+
+      it 'returns plot attributes' do
+        expect(data_set.plot_args)
+          .to eq("'-' using 1:2 with lines")
       end
     end
   end
