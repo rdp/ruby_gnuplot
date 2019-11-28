@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Gnuplot::DataSet do
   subject(:data_set) { described_class.new(data) }
 
+  let(:data) { nil }
+
   describe '#to_gplot' do
     context 'when data is an empty array' do
       let(:data) { [] }
@@ -41,14 +43,27 @@ describe Gnuplot::DataSet do
     end
 
     context 'when data is nil' do
-      let(:data) { nil }
-
       it do
         expect(data_set.to_gplot).to be_nil
       end
 
       it 'assigns data' do
         expect(data_set.data).to eq(data)
+      end
+    end
+
+    context 'when setting attributes' do
+      subject(:data_set) do
+        described_class.new do |ds|
+          ds.with  = 'lines'
+          ds.using = '1:2'
+          ds.data = [ [0, 1, 2], [1, 2, 5] ]
+        end
+      end
+
+      it 'returns only the data' do
+        expect(data_set.to_gplot)
+          .to eq("0 1\n1 2\n2 5\ne")
       end
     end
   end
