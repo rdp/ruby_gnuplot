@@ -16,10 +16,10 @@ h2.  History and Background
     
 h2.  Pre-requisites and Installation
 
-      1. Install XQuartz from here: 
+      1. (mac) Install XQuartz from here: 
 	     @http://xquartz.macosforge.org/landing/@
 	  
-	  2. Install gnuplot with homebrew:
+	  2. Install gnuplot with homebrew (not OS X? install it using your package manager):
 	     @brew install gnuplot --with-x11@
 	  
 	  3. Install gnuplot gem:
@@ -188,6 +188,8 @@ File.open( "gnuplot.dat", "w") do |gp|
 end
 </pre>    
 
+h3. Miscellanrous
+
 You can also add arbitrary lines to the output 
 
 <pre>
@@ -196,3 +198,9 @@ plot.arbitrary_lines << "set ylabel \"y label\" font \"Helvetica,20\""
 
 See more in the examples folder.  Also since this is basically just a wrapper for gnuplot itself, you should be able to do anything that it can do (demos: 
 http://gnuplot.sourceforge.net/demo_4.4/ ) 
+
+h3. Security
+
+Note that if you pass any user-controlled strings to the gem, it's possible for an attacker to run arbitrary commands.
+
+In addition to title, any other graph properties that accept strings should be affected too.  they're all passed to the system command.  So only use strings you trust.
